@@ -1,0 +1,188 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *prev;
+    struct node *next;
+};
+struct node *create(struct node *p,int val)
+{
+    if(p==NULL)
+    {
+        p=(struct node *)malloc(sizeof(struct node));
+        p->data=val;
+        p->prev=NULL;
+        p->next=NULL;
+    }
+    else
+    {
+        p->next=create(p->next,val);
+    }
+    return p;
+}
+struct node *insertatbeg(struct node *p,int val)
+{
+    struct node *q;
+    q=(struct node *)malloc(sizeof(struct node));
+    q->data=val;
+    q->prev=NULL;
+    q->next=p;
+    p->prev=q;
+    return q;
+}
+struct node *insertatspec(struct node *head,int val,int index)
+{
+    struct node *p,*q;
+    p=(struct node *)malloc(sizeof(struct node));
+    q=(struct node *)malloc(sizeof(struct node));
+    head=p;
+    int i=1;
+    while(i!=index-1)
+    {
+        p=p->next;
+        i++;
+    }
+    p->next->prev=q;
+    q->data=val;
+    q->prev=p;
+    q->next=p->next;
+    p->next=q;
+    return head;
+}
+struct node *insertatend(struct node *head,int val)
+{
+    struct node *p,*q;
+    p=(struct node *)malloc(sizeof(struct node));
+    q=(struct node *)malloc(sizeof(struct node));
+    head=p;
+    while(p->next!=NULL)
+    {
+        p=p->next;
+    }
+    p->next=q;
+    q->data=val;
+    q->prev=p;
+    q->next=NULL;
+    return head;
+}
+struct node *delatbeg(struct node *head)
+{
+    struct node *p;
+    p=head;
+    head=head->next;
+    head->prev=NULL;
+    free(p);
+    return head;
+}
+struct node *delatspec(struct node *head,int index)
+{
+    struct node *p;
+    struct node *q;
+    p=head;
+    q=p->next;
+    int i=1;
+    while(i!=index-1)
+    {
+        p=p->next;
+        q=q->next;
+        i++;
+    }
+    p->next=q->next;
+    p->next->prev=p;
+    free(q);
+    return head;
+}
+struct node *delatend(struct node *head)
+{
+    struct node*p;
+    struct node*q;
+    p=head;
+    q=p->next;
+    while(q->next!=NULL)
+    {
+        p=p->next;
+        q=q->next;
+    }
+    p->next=NULL;
+    free(q);
+    return head;
+}
+void traverse(struct node*p)
+{
+    printf("the list is:-\n");
+    while(p!=NULL)
+    {
+        printf("%d\t",p->data);
+        p=p->next;
+    }
+    printf("\n");
+}
+int main()
+{
+    int ch,n;
+    struct node *head=NULL;
+    do
+    {
+        printf("PRESS 1 to craete new node\n");
+        printf("PRESS 2 to traverse\n");
+        printf("PRESS 3 to insert the node at begnning\n");
+        printf("PRESS 4 to insert the node at specefic postion\n");
+        printf("PRESS 5 to insert the node at end\n");
+        printf("PRESS 6 to del the node at begnning\n");
+        printf("PRESS 7 to del at specefic\n");
+        printf("PRESS 8 to del at end\n");
+        printf("PRESS 9 to quit the program\n");
+        printf("Enter your choice :-");
+        scanf("%d", &ch);
+        switch (ch)
+        {
+            case 1:
+                printf("Enter the new element:");
+                scanf("%d",&n);
+                head=create(head,n);
+                break;
+            case 2:
+                traverse(head);
+                break;
+            case 3:
+                printf("Enter the element to be insert in begnning:");
+                scanf("%d",&n);
+                head=insertatbeg(head,n);
+                break;
+            case 4:int index;
+                printf("Enter the postion where to be inserted the element");
+                scanf("%d",&index);
+                printf("Enter the element to be inserted");
+                head=insertatspec(head,n,index);
+                break;
+            case 5:
+                printf("Enter the element to inserted at the end");
+                scanf("%d",&n);
+                head=insertatend(head,n);
+                break;
+            case 6:
+                printf("deleting the first node:\n");
+                head=delatbeg(head);
+                break;
+            case 7:
+                int index;
+                printf("Enter the index which node is to be deleted:");
+                scanf("%d",&index);
+                printf("Deleting the specefic node\n");
+                head=delatspec(head,index);
+                break;
+            case 8:
+                printf("Deleting the last node:");
+                head=delatend(head);
+                break;
+            case 9:
+                printf("Quit the program");
+                break;
+                default:
+                    printf("\nInalid Choice\n");
+                    break;
+        }
+    } while (ch!=9);
+    return 0;
+}
