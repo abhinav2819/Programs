@@ -1,0 +1,46 @@
+//quick sort
+#include<stdio.h>
+void quick_sort(int a[],int n ,int lb,int ub)
+ {
+  int i,j,pivot,t;
+  if(lb<ub)
+  {
+  pivot=lb;
+  i=lb;
+  j=ub;
+  while(i<j)
+   {
+    while(a[i]<=a[pivot])
+     i++;
+    while(a[j]>a[pivot])
+     j--;
+    if(i<j)
+     {
+      t=a[i];
+      a[i]=a[j];
+      a[j]=t;
+      }
+    }
+   t=a[pivot];
+   a[pivot]=a[j];
+   a[j]=t;
+   quick_sort(a,n,lb,j-1);
+   quick_sort(a,n,j+1,ub);
+   }
+ }
+   main()
+  {
+   int k,t,a[25],m;
+   
+   printf("\n how many element u want to sort");
+   scanf("%d",&m);
+   for(k=0;k<m;k++)
+     {
+      printf("a[%d]=",k);
+      scanf("%d",&a[k]);
+      }
+   quick_sort(a,m,0,m-1);
+   for(k=0;k<m;k++)
+    printf("\n%d",a[k]);
+    
+ }
