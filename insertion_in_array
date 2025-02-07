@@ -1,0 +1,57 @@
+//insertion in array
+
+#include<stdio.h>
+#include<conio.h>
+void display(int arr[], int n){
+    int i;
+    for ( i = 0; i < n; i++)
+    {
+        printf("%d\t",arr[i]);
+    }
+}
+int main(){
+    int arr[10];
+    int n,i,newelement;
+    //lets input elements in the array first
+    printf("How many elements you want to input(till 10) in the array :- ");
+    scanf("%d",&n);
+    for ( i = 0; i < n; i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    printf("The original array\n");
+    display(arr, n);
+    //let us insert a new element in an array at the begnning 
+    printf("\nEnter the new element to insert at beginning :-");
+    scanf("%d",&newelement);
+     for ( i = n-1; i >= 0; i--)
+    {
+        arr[i+1] = arr[i];
+    }
+    n = n + 1;
+    arr[0] = newelement;
+    printf("\nThe updated array after insertion at beginning :-\n");
+    display(arr,n);
+    //let us insert an element at the end of an array;
+    printf("\nEnter the new element to insert at end :- ");
+    int newatend;
+    scanf("%d",&newatend);
+    arr[n] = newatend;
+    n=n+1;
+    printf("\nThe updated array after insertion at end :-\n");
+    display(arr, n);
+    //let us insert new elemnt at amy specific position
+    int newspecific,pos;
+    printf("\n Enter the position to insert new elemnt :-");
+    scanf("%d",&pos);
+    printf("Enter the new element to insert at any specific position:-");
+    scanf("%d",&newspecific);
+    for ( i = n-1; i >= pos-1; i--)
+    {
+        arr[i+1] = arr[i];
+    }
+    arr[pos-1] = newspecific;
+    n = n+1;
+    display(arr,n);
+     return 0;
+}
