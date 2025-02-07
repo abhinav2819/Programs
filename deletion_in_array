@@ -1,0 +1,56 @@
+//Deletion in array
+
+#include <stdio.h>
+#include <string.h>
+void display(int arr[], int n){
+    int i;
+    for ( i = 0; i < n; i++)
+    {
+        printf("%d\t",arr[i]);
+    }
+}
+int main ()
+{
+    int a[10];
+    int i,n;
+    printf("Enter the number of elements to input in array:-");
+    scanf("%d",&n);
+    printf("Let us enter the lements in the array:-\n");
+    //iputting elements in array
+    for ( i = 0; i < n; i++)
+    {
+        scanf("%d", &a[i]);
+    }
+    //dsplayng the original array
+    printf("The original array :-\n");
+    display(a,n);
+    //let us delete an element from the beginning
+    for ( i = 1; i < n; i++)
+    {
+        a[i-1] = a[i];
+    }
+    n=n-1;//updating the size of array after deletion
+    printf("\n the updated array after deletion from beginning :-\n");
+    display(a,n);
+    //deletion at the end of an array
+    n=n-1;
+    printf("\nUpdated array afte deletion from end:-\n");
+    display(a,n);
+    //deletion at a specific position
+    int pos;
+    printf("\nEnter the position of the element to be deleted :-");
+    scanf("%d",&pos);
+    if (pos < 1 || pos > n) {
+    printf("Invalid position!\n"); 
+    }
+    else{
+    for ( i = pos-1; i < n-1; i++)
+    {
+        a[i] = a[i+1];
+    }
+    n =n-1;
+    printf("\nUpdated array after deletion from %d position:-\n",pos);
+    display(a,n);
+    }
+    return 0;
+}
