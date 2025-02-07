@@ -1,0 +1,83 @@
+#include<stdio.h>
+#include<string.h>
+#include<conio.h>
+#define max 5
+
+void push(int *t,int a[])
+{
+	if(*t==max-1)
+	{
+		printf("\nStack is full under flow situation");
+	}
+	else
+	{
+		int val;
+		printf("\nEnter the element to inserted in the stack:");
+		scanf("%d",&val);
+		*t=*t+1;
+		a[*t]=val;
+		printf("\nelement %d is inserted into the stack",val);
+	}
+}
+void pop(int *t,int a[])
+{
+	if(*t==-1)
+	{
+		printf("the stack is empty");
+	}
+	else
+	{
+		int val=a[*t];
+		*t=*t-1;
+		printf("The deleted elmenet=%d",val);
+	}
+}
+void disp(int *t,int a[])
+{
+	if(*t==-1)
+	{
+		printf("Stack is empty");
+	}
+	else
+	{
+		int i;
+		printf("\nThe queue is:-");
+		for(i=*t;i>=0;i--)
+		{
+			printf("\t%d",a[i]);
+		}
+	}
+}
+
+int main()
+{
+	int queue[max];
+	int top=-1;
+	int ch;
+
+	printf("STACK Menu:");
+	printf("\t1.Insertion");
+	printf("\t2.Deletion");
+	printf("\t3.Display");
+	printf("\t4.Exit");
+
+	do
+	{
+		printf("\nEnter the choice:");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:push(&top,queue);
+			break;
+			case 2:pop(&top,queue);
+			break;
+			case 3:disp(&top,queue);
+			break;
+			case 4:printf("Exit");
+			break;
+			default:printf("Invalid choice");
+			break;
+		}
+	} while (ch!=4);
+	return 0;
+}
