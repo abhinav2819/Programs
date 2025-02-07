@@ -1,0 +1,45 @@
+///WAP of BUBBle sort
+#include<stdio.h>
+
+//LOGIC
+
+void bubblesort(int a[], int n)
+   {
+    int i,j,t;
+    for(i=0;i<n-1;i++)
+       {
+	for(j=0;j<n-i-1;j++)
+	   {
+	     if(a[j]>a[j+1])
+	       {
+		 t=a[j];
+		 a[j]=a[j+1];
+		 a[j+1]=t;
+	       }
+	   }
+	}
+    }
+int main()
+
+//INPUT
+
+ {
+   int a[100],k,m;
+   
+   printf("\n enter the no of element");
+   scanf("%d",&m);
+
+ for(k=0;k<m;k++)
+     {
+       printf("a[%d]=",k);              // reading of an array element
+       scanf("%d",&a[k]);
+     }
+
+     //DISPLAY
+
+    bubblesort(a,m);
+    printf("\n The sorted element are");
+    for(k=0;k<m;k++)
+     printf("\n%d",a[k]);
+    
+  }
