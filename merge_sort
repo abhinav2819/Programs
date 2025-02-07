@@ -1,0 +1,52 @@
+//Merge sort
+#include<stdio.h>
+int a[25];
+void merge(int lb,int mid,int ub)
+  {
+    int i,j,k,b[25];
+
+    for(i=lb,j=mid+1,k=lb;i<=mid && j<=ub;k++)
+     {
+       if(a[i]<=a[j])
+	 b[k]=a[i++];
+	else
+	  b[k]=a[j++];
+      }
+
+	 while(i<=mid)
+	    b[k++]=a[i++];
+	 while(j<=ub)
+	     b[k++]=a[j++];
+
+	 for(k=lb;k<=ub;k++)
+	   a[k]=b[k];
+}
+void merge_sort(int l,int u)
+ {
+  int mid;
+  if(l<u)
+  {
+  mid=((l+u)/2);
+   merge_sort(l,mid);
+   merge_sort(mid+1,u);
+   merge(l,mid,u);
+   }
+ }
+
+
+   main()
+  {
+   int k,m;
+   
+   printf("\n how many element u want to sort");
+   scanf("%d",&m);
+   for(k=0;k<m;k++)
+     {
+      printf("a[%d]=",k);
+      scanf("%d",&a[k]);
+      }
+   merge_sort(0,m-1);
+   for(k=0;k<m;k++)
+    printf("\n%d",a[k]);
+    
+ }
