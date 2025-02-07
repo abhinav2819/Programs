@@ -1,0 +1,186 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct node
+{
+    int data;
+    struct node *lc;
+    struct node *rc;
+}node;
+node *create(node *p,int val)
+{
+    if(p==NULL)
+    {
+        p=(node*)malloc(sizeof(node));
+        p->data=val;
+        p->lc=p->rc=NULL;
+    }
+    else 
+    if(val<p->data)
+    {
+        p->lc=create(p->lc,val);
+    }
+    else
+    if(val>p->data)
+    {
+        p->rc=create(p->rc,val);
+    }
+    else
+    printf("\nDuplicate Node");
+    return p;
+}
+void insert(node *p,int val)
+{
+    node *parent;
+    node *q;
+    int flag=0;
+    while (p!=NULL&&flag==0)
+    {
+        if(val<p->data)
+        {
+            parent=p;
+            p=p->lc;
+        }
+        else if(val>p->data)
+        {
+            parent=p;
+            p=p->rc;
+        }
+        else if(val==p->data)
+        {
+            flag=1;
+            printf("\nDuplicate Node exist.\n");
+        }
+    }
+    if(p==NULL)
+    {
+        q=(node*)malloc(sizeof(node));
+        q->data=val;
+        q->lc=q->rc=NULL;
+        if(parent->data>val)
+        {
+            parent->lc=q;
+        }
+        else parent->rc=q;
+    }
+}
+void del(node *p,int val)
+{
+    node *parent,*succ;
+    int flag=0;
+    while(p!=NULL&&flag==0)
+    {
+        if(val<p->data)
+        {
+            parent=p;
+            p=p->lc;
+        }
+        else if(val>p->data)
+        {
+            parent=p;
+            p=p->rc;
+        }
+        else if(val==p->data)
+        {
+            flag=1;
+        }
+    }
+    while(p!=NULL)
+    {
+        //root node have no child
+        if(p->lc==NULL&&p->rc==NULL)
+        {
+            if(parent->rc==p)
+                parent->rc=NULL;
+            else
+                parent->lc=NULL;
+            free(p);
+            break;
+        }
+        //root node have only left child
+        if(p->lc!=NULL&&p->rc==NULL)
+        {
+            if(parent->lc==p)
+                parent->lc=p->lc;
+            else
+                parent->rc=p->lc;
+            free(p);
+            break;
+        }
+        //root node only have right child
+        if(p->lc==NULL&&p->rc!=NULL)
+        {
+            if(parent->rc==p)
+                parent->rc=p->rc;
+            else
+                parent->lc=p->rc;
+            free(p);
+            break;
+        }
+        //root node have both the child
+        if(p->lc!=NULL&&p->rc!=NULL)
+        {
+            parent=p;
+            succ=p->rc;
+            while(succ->lc!=NULL)
+            {
+                parent=succ;
+                succ=succ->lc;
+            }
+            p->data=succ->data;
+            p=succ;
+            free(p);
+        }
+    }
+}
+void traverse(node *p)
+{
+    if(p!=NULL)
+    {
+        traverse(p->lc);
+        printf("%d\t",p->data);
+        traverse(p->rc);
+    }
+}
+int main()
+{
+    node* root=NULL;
+    int n,ch;
+    do
+    {
+        printf("\nPRESS 1.Create");
+        printf("\nPRESS 2.Insert");
+        printf("\nPRESS 3.Deleting the node");
+        printf("\nPRESS 4.Traverse Inorder");
+        printf("\nPRESS 5.Quit");
+        printf("\nEnter the choice:");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+                printf("\nEnter the data:");
+                scanf("%d",&n);
+                root=create(root,n);
+                break;
+            case 2:
+                printf("\nEnter the data to insert:");
+                scanf("%d",&n);
+                insert(root,n);
+                break;
+            case 3:
+                printf("\nEnter the data to delete");
+                scanf("%d",&n);
+                del(root,n);
+                break;
+            case 4:
+                printf("The Inorder Traverse is:-\n");
+                traverse(root);
+                break;
+            case 5:
+                printf("Quitting the program");
+                break;
+                default:printf("\nInalid choice");
+                break;
+        }
+    } while (ch!=5);
+    return 0;
+}
