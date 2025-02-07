@@ -1,0 +1,37 @@
+#include<stdio.h>
+
+void selection_sort(int a[], int n)
+   {
+    int i,j,t;
+    for(i=0;i<n;i++)
+       {
+	for(j=i+1;j<n;j++)
+	   {
+	     if(a[i]>a[j])
+	       {
+		 t=a[i];
+		 a[i]=a[j];
+		 a[j]=t;
+	       }
+	   }
+	}
+    }
+ int main()
+ {
+   int k,m;
+   int a[100];
+   printf("\n enter the no of element");
+   scanf("%d",&m);
+   for(k=0;k<m;k++)
+     {
+       printf("a[%d]=",k);              // reading of an array element
+       scanf("%d",&a[k]);
+     }
+
+    selection_sort(a,m);
+
+    printf("\n The sorted element are");
+    for(k=0;k<m;k++)
+     printf("\n%d",a[k]);
+
+  }
